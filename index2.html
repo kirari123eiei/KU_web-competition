@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>T-Goda - Hotel Search</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    color: #1a1a1a;
+    background: #f7f7f7;
+    line-height: 1.5;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  /* ─── NAVBAR ─── */
+  .navbar {
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    height: 64px;
+    border-bottom: 1px solid #e5e7eb;
+    top: 0;
+    background: #fff;
+    z-index: 100;
+    gap: 32px;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 700;
+    color:#2563EB;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    flex: 1;
+  }
+
+  .nav-links {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4b5563;
+  }
+
+  .nav-links .active {
+    color:#2563EB;
+    font-weight: 600;
+    border-bottom: 2px solid #2563EB;
+    padding-bottom: 2px;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .btn-signin {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 16px 8px 16px;
+    color: #475569;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .btn-create {
+    background: #1d4ed8;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* ========== SEARCH BAR ========== */
+  .search-bar-wrap {
+    background: #ffffff;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 40px;
+    line-height: 1.2;
+  }
+  .search-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #ECEDF6;
+    border-radius: 12px;
+    border: 1px solid #e0e2ec;
+    line-height: 1.2;
+    min-width: 0;
+  }
+
+  .search-field:first-child { flex: 2; }
+  .search-field.destination { flex: 2; }
+  .search-field.dates { flex: 1.2; }
+  .search-field.travelers { flex: 1; }
+  .search-field .icon { color: #1565C0; font-size: 18px; flex-shrink: 0; }
+  .search-label { font-size: 12px; color: #888; display: block;}
+  .search-value { font-size: 14px; font-weight: 600; color: #1a1a1a;}
+  .btn-update {
+    background: #1565C0;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 32px;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    box-shadow: #0066cc91 0px 4px 12px -5px;
+  }
+
+  /* ========== LAYOUT ========== */
+  .page-body {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar { 
+    width: 260px;
+    flex-shrink: 0; 
+    background-color: white;
+    padding: 24px 20px 32px 20px;
+    border-radius: 16px;
+    border: 1px solid #e0e4ef;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  }
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 24px;
+    color: #1a1a1a;
+  }
+  .sidebar-header .filter-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 20px;
+  }
+  .sidebar-header .filter-icon span {
+    display: block;
+    height: 2.5px;
+    background: #1565C0;
+    border-radius: 2px;
+  }
+  .sidebar-header .filter-icon span:nth-child(1) { width: 100%; }
+  .sidebar-header .filter-icon span:nth-child(2) { width: 70%; }
+  .sidebar-header .filter-icon span:nth-child(3) { width: 45%; }
+
+  .filter-section { 
+    margin-bottom: 28px; 
+    padding-bottom: 28px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .filter-section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .filter-title { 
+    font-size: 15px; 
+    font-weight: 700; 
+    color: #1a1a1a; 
+    margin-bottom: 16px; 
+  }
+  .price-range-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 12px;
+  }
+  /* Custom range slider track */
+  .range-slider-wrap { position: relative; padding: 4px 0; }
+  .range-slider {
+    width: 100%;
+    height: 5px;
+    background: #e5e7eb;
+    border-radius: 99px;
+    position: relative;
+  }
+  .range-slider-fill {
+    position: absolute;
+    left: 0; top: 0;
+    height: 100%;
+    width: 100%;
+    background: #d1d5db;
+    border-radius: 99px;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #374151;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+  .checkbox-item:last-child { margin-bottom: 0; }
+
+  .checkbox-item input[type="checkbox"] {
+    width: 20px; 
+    height: 20px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 5px;
+    accent-color: #1565C0;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  /* Star rating rows use same checkbox but stars are bigger */
+  .star-row-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    cursor: pointer;
+  }
+  .star-row-item:last-child { margin-bottom: 0; }
+  .star-row-item input[type="checkbox"] {
+    width: 20px; 
+    height: 20px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 5px;
+    accent-color: #1565C0;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .stars-row { display: flex; gap: 3px; }
+  .star { color: #F5A623; font-size: 22px; line-height: 1; }
+  .star.empty { color: #e5e7eb; }
+  .map-widget {
+    background: #e3f0ff;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 10px;
+  }
+  .map-widget svg { width: 80%; height: 80%; opacity: 0.5; }
+  .btn-map {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #222;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  }
+
+  /* ========== MAIN CONTENT ========== */
+  .main { flex: 1; }
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .results-title { font-size: 18px; font-weight: 700; color: #222; }
+  .sort-wrap { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; }
+  .sort-select {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 13px;
+    color: #222;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  /* ========== FLASH DEALS CARD ========== */
+  .flash-card {
+    border: 2px solid #1565C0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    background: #fff;
+  }
+  .flash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid #e8e8e8;
+    background-color: #B61B4A1A;
+  }
+  .flash-title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #E91E63;
+  }
+  .flash-timer-wrap { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; }
+  .timer {
+    background: #E91E63;
+    color: #fff;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  /* ========== HOTEL CARD (in flash) ========== */
+  .hotel-card-flash {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fff;
+  }
+  .hotel-card-flash:last-child { border-bottom: none; }
+  .hotel-img-wrap {
+    width: 210px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hotel-img-wrap img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+  }
+  .off-badge {
+    position: absolute;
+    top: 0; left: 0;
+    background: #E91E63;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 0 0 8px 0;
+  }
+  .hotel-info {
+    flex: 1;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hotel-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+  .hotel-location {
+    font-size: 12px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .hotel-price-wrap {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    min-width: 110px;
+  }
+  .original-price {
+    font-size: 12px;
+    color: #aaa;
+    text-decoration: line-through;
+    margin-bottom: 2px;
+  }
+  .current-price { font-size: 26px; font-weight: 800; color: #1565C0; }
+  .per-night { font-size: 12px; color: #888; }
+  .btn-claim {
+    background: #E91E63;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+
+  /* ========== NORMAL HOTEL CARD ========== */
+  .hotel-card {
+    display: flex;
+    align-items: stretch;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    position: relative;
+  }
+  .hotel-card .hotel-img-wrap { width: 250px; }
+  .hotel-card .hotel-img-wrap img {
+    width: 100%;
+    height: 100%;
+    min-height: 160px;
+    object-fit: cover;
+  }
+  .top-choice-badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: #fff;
+    border: 1px solid #1565C0;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1565C0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .top-choice-badge .dot {
+    width: 8px; height: 8px;
+    background: #1565C0;
+    border-radius: 50%;
+  }
+  .hotel-card .hotel-info { padding: 18px 20px; }
+  .hotel-card .hotel-name { font-size: 17px; }
+  .amenities {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .amenity {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #e632a1;
+  }
+  .urgency { font-size: 12px; color: #888; margin-top: 10px; font-weight: 500; }
+  .cancel-note { font-size: 12px; color: #888; margin-top: 8px; }
+  .deal-note { font-size: 12px; color: #888; margin-top: 8px; }
+  .hotel-card .hotel-price-wrap { padding: 18px 18px; min-width: 130px; }
+  .hotel-card .current-price { color: #1565C0; }
+  .review-score {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 8px;
+  }
+  .score-value { font-size: 15px; font-weight: 800; color: #1565C0; }
+  .score-label { font-size: 12px; color: #888; }
+  .score-count { font-size: 11px; color: #aaa; }
+  .btn-book {
+    background: #1565C0;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  /* ========== PAGINATION ========== */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 24px;
+    padding-bottom: 30px;
+  }
+  .page-btn {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+  }
+  .page-btn.active {
+    background: #1565C0;
+    color: #fff;
+    border-color: #1565C0;
+    font-weight: 700;
+  }
+  .page-btn.arrow { font-size: 18px; }
+
+  /* Stars inline */
+  .stars-inline { display: inline-flex; gap: 1px; margin-left: 6px; vertical-align: middle; }
+  .stars-inline .star { font-size: 13px; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">T-Goda</div>
+  <div class="nav-links">
+    <a href="#" class="active">Hotels</a>
+    <a href="#">Flights</a>
+    <a href="#">Bundles</a>
+    <a href="#">Activities</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-signin">Sign In</button>
+    <button class="btn-create">Create Account</button>
+  </div>
+</nav>
+
+<!-- SEARCH BAR -->
+<div class="search-bar-wrap">
+  <div class="search-field">
+    <span class="icon">
+        <img src="iconn/pin.png" alt="Location Icon" style="width:16px;height:16px;">
+    </span>
+    <div>
+      <span class="search-label">Destination</span>
+      <span class="search-value">Bali, Indonesia</span>
+    </div>
+  </div>
+  <div class="search-field" style="margin-left:24px;">
+    <span class="icon">
+        <img src="iconn/date.png" alt="Calendar Icon" style="width:16px;height:16px;">
+    </span>
+    <div>
+      <span class="search-label">Dates</span>
+      <span class="search-value">Oct 12 – Oct 19, 2024</span>
+    </div>
+  </div>
+  <div class="search-field" style="margin-left:24px;">
+    <span class="icon">
+        <img src="iconn/person.png" alt="Travelers Icon" style="width:16px;height:16px;">
+    </span>
+    <div>
+      <span class="search-label">Travelers</span>
+      <span class="search-value">2 Adults, 1 Room</span>
+    </div>
+  </div>
+  <button class="btn-update" style="margin-left:auto;">Update Search</button>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="filter-icon">
+        <span></span><span></span><span></span>
+      </div>
+      Filters
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-title">Price Range</div>
+      <div class="price-range-row"><span>$0</span><span>$1000+</span></div>
+      <div class="range-slider-wrap">
+        <div class="range-slider">
+          <div class="range-slider-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-title">Property Type</div>
+      <label class="checkbox-item"><input type="checkbox"> Hotels</label>
+      <label class="checkbox-item"><input type="checkbox"> Resorts</label>
+      <label class="checkbox-item"><input type="checkbox"> Apartments</label>
+      <label class="checkbox-item"><input type="checkbox"> Villas</label>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-title">Star Rating</div>
+      <label class="star-row-item">
+        <input type="checkbox">
+        <div class="stars-row">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+      </label>
+      <label class="star-row-item">
+        <input type="checkbox">
+        <div class="stars-row">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span>
+        </div>
+      </label>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-title">Facilities</div>
+      <label class="checkbox-item"><input type="checkbox"> Free Wi-Fi</label>
+      <label class="checkbox-item"><input type="checkbox"> Swimming Pool</label>
+      <label class="checkbox-item"><input type="checkbox"> Fitness Center</label>
+      <label class="checkbox-item"><input type="checkbox"> Spa</label>
+      <label class="checkbox-item"><input type="checkbox"> Parking</label>
+      <label class="checkbox-item"><input type="checkbox"> Pet Friendly</label>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-title">Review Score</div>
+      <label class="checkbox-item"><input type="checkbox"> Superb 9+</label>
+      <label class="checkbox-item"><input type="checkbox"> Very Good 8+</label>
+      <label class="checkbox-item"><input type="checkbox"> Good 7+</label>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-title">Neighborhood</div>
+      <label class="checkbox-item"><input type="checkbox"> Patong</label>
+      <label class="checkbox-item"><input type="checkbox"> Karon</label>
+      <label class="checkbox-item"><input type="checkbox"> Kata</label>
+      <label class="checkbox-item"><input type="checkbox"> Kamala</label>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-title">Bed Type</div>
+      <label class="checkbox-item"><input type="checkbox"> Single</label>
+      <label class="checkbox-item"><input type="checkbox"> Double</label>
+      <label class="checkbox-item"><input type="checkbox"> King</label>
+    </div>
+
+    <!-- MAP WIDGET -->
+    <div class="map-widget">
+      <svg viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="60" rx="80" ry="50" fill="#1565C0" opacity="0.18"/>
+        <path d="M60 80 Q80 30 130 50 Q160 65 140 90 Q110 110 60 80Z" fill="#1565C0" opacity="0.35"/>
+        <circle cx="80" cy="65" r="5" fill="#1565C0" opacity="0.7"/>
+        <circle cx="120" cy="55" r="5" fill="#1565C0" opacity="0.7"/>
+        <circle cx="100" cy="80" r="4" fill="#E91E63" opacity="0.8"/>
+      </svg>
+      <button class="btn-map">🗺 View on Map</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="results-header">
+      <span class="results-title">245 properties in Bali</span>
+      <div class="sort-wrap">
+        Sort by:
+        <select class="sort-select">
+          <option>Recommended ▾</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Rating</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- FLASH DEALS SECTION -->
+    <div class="flash-card">
+      <div class="flash-header">
+        <div class="flash-title">
+          🔥 Flash Deals for You
+        </div>
+        <div class="flash-timer-wrap">
+          Ends in: <span class="timer">08 : 45 : 12</span>
+        </div>
+      </div>
+
+      <!-- Hotel 1 -->
+      <div class="hotel-card-flash">
+        <div class="hotel-img-wrap">
+          <a href="index3.html" class="view-all">
+            <img src="picturee/villa1.png" alt="Mandala Sky Luxury Villas">
+          </a>
+          <span class="off-badge">60% OFF</span>
+        </div>
+        <div class="hotel-info">
+          <div class="hotel-name">Mandala Sky Luxury Villas
+            <span class="stars-inline">
+              <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span>
+            </span>
+          </div>
+          <div class="hotel-location">📍 Uluwatu, Bali • Cliff-top view</div>
+        </div>
+        <div class="hotel-price-wrap">
+          <div class="original-price">$1,200</div>
+          <div><span class="current-price">$480</span></div>
+          <div class="per-night">/night</div>
+          <button class="btn-claim">Claim</button>
+        </div>
+      </div>
+
+      <!-- Hotel 2 -->
+      <div class="hotel-card-flash">
+        <div class="hotel-img-wrap">
+            <a href="index3.html" class="view-all">
+             <img src="picturee/villa2.png" alt="Emerald Jungle Retreat">
+            </a>
+          <span class="off-badge">45% OFF</span>
+        </div>
+        <div class="hotel-info">
+          <div class="hotel-name">Emerald Jungle Retreat
+            <span class="stars-inline">
+              <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span>
+            </span>
+          </div>
+          <div class="hotel-location">📍 Ubud, Bali • Private Sanctuary</div>
+        </div>
+        <div class="hotel-price-wrap">
+          <div class="original-price">$450</div>
+          <div><span class="current-price">$247</span></div>
+          <div class="per-night">/night</div>
+          <button class="btn-claim">Claim</button>
+        </div>
+      </div>
+
+      <!-- Hotel 3 -->
+      <div class="hotel-card-flash">
+        <div class="hotel-img-wrap">
+          <a href="index3.html" class="view-all">
+            <img src="picturee/villa3.png" alt="Seminyak Shores Club">
+          </a>
+          <span class="off-badge">35% OFF</span>
+        </div>
+        <div class="hotel-info">
+          <div class="hotel-name">Seminyak Shores Club
+            <span class="stars-inline">
+              <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+            </span>
+          </div>
+          <div class="hotel-location">📍 Seminyak, Bali • Beachfront Bliss</div>
+        </div>
+        <div class="hotel-price-wrap">
+          <div class="original-price">$660</div>
+          <div><span class="current-price">$442</span></div>
+          <div class="per-night">/night</div>
+          <button class="btn-claim">Claim</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- REGULAR HOTEL CARDS -->
+
+    <!-- The Azure Serenity Resort -->
+    <div class="hotel-card">
+      <div class="hotel-img-wrap" style="position:relative;">
+        <img src="Image/1.png" alt="The Azure Serenity Resort">
+        <div class="top-choice-badge"><span class="dot"></span> Top Choice</div>
+      </div>
+      <div class="hotel-info">
+        <div class="hotel-name">The Azure Serenity Resort
+          <span class="stars-inline">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </span>
+        </div>
+        <div class="hotel-location">📍 Ubud, Bali • 2.5 km from center</div>
+        <div class="amenities">
+          <span class="amenity">📶 Free Wi-Fi</span>
+          <span class="amenity">🏊 Pool</span>
+          <span class="amenity">🍽 Breakfast</span>
+        </div>
+        <div class="urgency">Only 2 rooms left at this price!</div>
+      </div>
+      <div class="hotel-price-wrap">
+        <div class="review-score">
+          <span class="score-value">8.9 Excellent</span>
+          <span class="score-count">1,240 reviews</span>
+        </div>
+        <div class="original-price">$320</div>
+        <div><span class="current-price">$284</span></div>
+        <div class="per-night">/night</div>
+        <button class="btn-book">Book Now</button>
+      </div>
+    </div>
+
+    <!-- Lumina Beach Villas -->
+    <div class="hotel-card">
+      <div class="hotel-img-wrap">
+        <a href="index3.html" class="view-all">
+          <img src="picturee/villa4.png" alt="Lumina Beach Villas">
+        </a>
+      </div>
+      <div class="hotel-info">
+        <div class="hotel-name">Lumina Beach Villas
+          <span class="stars-inline">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span>
+          </span>
+        </div>
+        <div class="hotel-location">📍 Seminyak, Bali • Beachfront</div>
+        <div class="amenities">
+          <span class="amenity">🏖 Private Beach</span>
+          <span class="amenity">💆 Spa</span>
+        </div>
+        <div class="cancel-note">Free cancellation before Oct 10</div>
+      </div>
+      <div class="hotel-price-wrap">
+        <div class="review-score">
+          <span class="score-value">9.2 Exceptional</span>
+          <span class="score-count">856 reviews</span>
+        </div>
+        <div><span class="current-price">$415</span></div>
+        <div class="per-night">/night</div>
+        <button class="btn-book">Book Now</button>
+      </div>
+    </div>
+
+    <!-- The Palms Sanctuary -->
+    <div class="hotel-card">
+      <div class="hotel-img-wrap">
+        <a href="index3.html" class="view-all">
+          <img src="picturee/villa6.png" alt="The Palms Sanctuary">
+        </a>
+      </div>
+      <div class="hotel-info">
+        <div class="hotel-name">The Palms Sanctuary
+          <span class="stars-inline">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span>
+          </span>
+        </div>
+        <div class="hotel-location">📍 Nusa Dua, Bali • 0.8 km from beach</div>
+        <div class="amenities">
+          <span class="amenity">✈️ Airport Shuttle</span>
+          <span class="amenity">img src="gym.png" Gym</span>
+        </div>
+        <div class="deal-note">Breakfast + Dinner deal available</div>
+      </div>
+      <div class="hotel-price-wrap">
+        <div class="review-score">
+          <span class="score-value">8.4 Great</span>
+          <span class="score-count">2,102 reviews</span>
+        </div>
+        <div><span class="current-price">$189</span></div>
+        <div class="per-night">/night</div>
+        <button class="btn-book">Book Now</button>
+      </div>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <button class="page-btn arrow">&#8249;</button>
+      <button class="page-btn arrow" style="background:#1565C0;color:#fff;border-color:#1565C0;">&#8249;</button>
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <button class="page-btn" style="border:none;background:none;font-size:16px;">...</button>
+      <button class="page-btn">12</button>
+      <button class="page-btn arrow">&#8250;</button>
+    </div>
+  </main>
+</div>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-Goda Footer</title>
+    <!-- นำเข้า Font Awesome สำหรับ Icon โซเชียล -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* ส่วน Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+            gap: 10px;
+        }
+        .page-btn {
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            background: white;
+        }
+        .page-btn.active {
+            background-color: #0066cc;
+            color: white;
+            border-color: #0066cc;
+        }
+
+        /* ส่วน Footer */
+        footer {
+            background-color: #fdfdfd;
+            padding: 60px 10%;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-left {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .footer-left h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .footer-left p {
+            max-width: 350px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .footer-right {
+            flex: 3;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .footer-column h4 {
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .social-icons {
+            margin-top: 30px;
+        }
+
+        .social-icons i {
+            font-size: 20px;
+            margin-right: 15px;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .copyright {
+            padding: 20px 10%;
+            font-size: 13px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <!-- Footer Area -->
+    <footer>
+        <div class="footer-left">
+            <h2>T-Goda</h2>
+            <p>Making world travel accessible, affordable, and delightful for everyone since 2024. Your journey starts here.</p>
+            <div class="copyright">
+                © 2024 T-Goda Booking. All rights reserved.
+            </div>
+            <div class="social-icons">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-twitter"></i>
+            </div>
+        </div>
+
+        <div class="footer-right">
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Mobile App</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

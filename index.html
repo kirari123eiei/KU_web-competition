@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T-Goda – Hotels, Flights, Bundles &amp; Activities</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1A6FDB;
+      --blue-dark: #1558b0;
+      --crimson: #C0254A;
+      --crimson-dark: #a01f3d;
+      --gray-bg: #F5F6F8;
+      --text: #1a1a2e;
+      --muted: #6b7280;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.5;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      height: 56px;
+      background: var(--white);
+      border-bottom: 1px solid #e8eaf0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-left { display: flex; align-items: center; gap: 30px; }
+    .logo { 
+        font-family: 'Plus Jakarta Sans', sans-serif; 
+        font-weight: 900; 
+        font-size: 24px; 
+        color: #2563EB; 
+        line-height: 32px;
+        letter-spacing: -1.2px;
+        vertical-align: middle;
+
+     }
+    .logo span { color: #2563EB; }
+    .dash {
+        display: inline-block;
+        transform: scaleX(0.5);   
+        margin-right: -5px;
+        margin-left: -5px;
+    }
+    .nav-links { 
+        display: flex; 
+        gap: 24px; 
+        list-style: none;
+        position: relative;
+    }
+
+    .underline {
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        background: #2563EB;
+        transition: all 0.3s ease;
+    }
+    .nav-links a {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 400;          /* SemiBold */
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.35px;
+        vertical-align: middle;
+        text-decoration: none;
+        color: #475569;
+        display: inline-block;
+        transition: all 0.25s ease;
+    }
+
+    .nav-links a.active { 
+        color: #2563EB; 
+        border-bottom: none; 
+        transform: translateY(-4.5px);
+    }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .btn-signin {
+        width: 76.33px;
+        height: 36px;
+        padding: 8px 16px;
+        border-radius: 8px;
+
+        background: none;
+        border: none;
+
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0;
+        text-align: center;
+
+        color: var(--text);
+        cursor: pointer;
+    }
+    .btn-create {
+        width: 138.58px;
+        height: 36px;
+        padding: 8px 16px;
+        border-radius: 8px;
+
+        background: var(--blue);
+        color: var(--white);
+        border: none;
+
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+        transition: background .2s;
+    }
+    .btn-create:hover { background: var(--blue-dark); }
+
+    /* ── HERO ── */
+    .hero {
+        width: calc(100% - 50px);
+        max-width: 1370px;
+        margin: 40px auto;
+        padding: 114px 16px;
+        height: 520px;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        background: url('Image-2.png') center/cover no-repeat;
+        border-radius: 16px;
+        filter: brightness(0.62);
+    }
+    .hero-content { position: relative; z-index: 1; color: var(--white); }
+    .hero-content h1 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 800;
+        font-size: 60px;
+        line-height: 60px;
+        letter-spacing: -1.5px;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 12px;
+    }
+    .hero-content p {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 300;
+        font-size: 20px;
+        line-height: 28px;
+        letter-spacing: 0;
+        text-align: center;
+        max-width: 650px; 
+        margin: 0 auto 24px;
+    }
+    .hero-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      padding-left: 8px;
+      width: 768px;
+      height: 68px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.25);
+    }
+    .search-input-box {
+        width: 292.29px;
+        height: 52px;
+        padding: 0 12px;
+        border-radius: 8px;
+        border: 1px solid #6B7FC6;
+        background: #E9E9E9;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }.search-input-box input {
+        border: none;
+        outline: none;
+        background: transparent;
+        color: #6B7280;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 16px;
+        flex: 1;
+    }
+    .search-icon {
+        width: 20.5;
+        height: 20;
+        opacity: 1;
+        color: #727784;
+
+    }
+    .hero-search .divider { width: 1px; height: 28px; background: #d1d5db; }
+    .date-box {
+        width: 292.29px;
+        height: 52px;
+        padding: 0 12px;
+        border-radius: 8px;
+        border: 1px solid #6B7FC6;
+        background: #E9E9E9;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .date-icon {
+        width: 20.5;
+        height: 20;
+        opacity: 1;
+        color: #727784;
+    }
+    .date-box span {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0;
+        color: #191C22;
+    }
+    
+    .btn-search {
+        width: 151.42px;
+        height: 52px;
+
+        padding: 12px 32px;
+        border-radius: 8px;
+        gap: 8px;
+
+        background: var(--blue);
+        color: var(--white);
+        border: none;
+
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+        letter-spacing: 0;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background .3s;
+    }
+    .search-btn-icon {
+        width: 18px;
+        height: 18px;
+    }
+    .btn-search:hover { background: var(--blue-dark); }
+
+    /* ── FEATURES ── */
+    .features {
+        width: calc(100% - 50px);
+        max-width: 1370px;
+        height: 232px;
+        margin: 0 auto;
+        opacity: 1;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 32px;
+        row-gap: 32px;
+        padding-top: 50px;
+    }
+    .feature-card {
+        height: 192px;
+        padding: 24px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        text-align: center;
+        gap: 12px;
+        background: rgba(233, 233, 233, 1);
+    }
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 9999px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .feature-icon svg {
+        width: 24.97px;
+        height: 25px;
+    }
+    .feature-icon.blue { background: rgba(83, 146, 249, 0.2); }
+    .feature-icon.pink { background: rgba(255, 86, 125, 0.2); }
+    .feature-icon.green { background: rgba(212, 127, 0, 0.2); }
+    .feature-card h3 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 600;
+        -webkit-font-smoothing: antialiased;
+        font-size: 20px;
+        line-height: 28px;
+        letter-spacing: 0;
+        text-align: center;
+        margin: 0; 
+    }
+    .feature-card p {
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0px;
+        text-align: center;
+        vertical-align: middle;
+        color: #424753;
+    }
+
+    /* ── TRENDING ── */
+    .section {
+        height: 730px;
+        max-width: 1290px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 100px 20px;
+        opacity: 1;
+     }
+     .section-header {
+        width: 100%;
+        margin: 0 auto 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    .section-header h2 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 600;
+        -webkit-font-smoothing: antialiased;
+        font-size: 30px;
+        line-height: 36px;
+        letter-spacing: 0;
+        vertical-align: middle;
+    }
+    .section-header p { 
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0;
+        vertical-align: middle; 
+        color: #424753;
+    }
+    .view-all { 
+        font-size: 16px; 
+        font-weight: 600; 
+        color: #005CBD; 
+        text-decoration: none; 
+    }
+    .dest-grid {
+        width: 100%;
+        padding-top: 14px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 24px;
+        row-gap: 24px;
+    }
+    .dest-card { 
+        border-radius: 12px; 
+        overflow: hidden; 
+        cursor: pointer; 
+    }
+    .dest-img {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 282px);
+      transition: transform .5s ease;
+    }
+    .dest-card:hover .dest-img { transform: scale(1.2); }
+    .dest-img-wrap { overflow: hidden; position: relative; }
+    .top-rated {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        width: 100px;
+        height: 23px;
+        padding: 3.5px 12px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #000000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+    }
+    .dest-info { padding: 10px 2px 0; }
+    .dest-info h4 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        -webkit-font-smoothing: antialiased;
+        font-size: 20px;
+        line-height: 28px;
+        letter-spacing: 0;
+        vertical-align: middle;
+    }
+    .dest-info p {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0;
+        vertical-align: middle;
+    }
+
+    .dest-info p span {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 100%;
+        letter-spacing: 0;
+        color: #005CBD;
+    }
+    /* ── PROMO BANNER ── */
+    .promo {
+        max-width: 1250px;
+        width: calc(100% - 50px);
+        height: 416px;
+        position: relative;
+        margin: 0 auto;
+        display: flex;
+        gap: 24px;
+        padding: 40px;
+        border-radius: 24px;
+        background-color: #B61B4A;
+        opacity: 1;
+    }
+    .promo::before {
+      content: '';
+      position: absolute;
+      right: 280px;
+      top: -40px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+    }
+    .promo::after {
+      content: '';
+      position: absolute;
+      right: 200px;
+      bottom: -60px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.06);
+    }
+    .promo-left {
+        width: 537.72px;
+        max-width: 576px;
+        height: 256px;
+        padding-top: 70px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .promo-left p {
+    font-family: 's', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0;
+    vertical-align: middle;
+    color:#ffffff
+    }
+    .summer {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 900;
+        font-size: 48px;
+        line-height: 48px;
+        letter-spacing: 0;
+        vertical-align: middle;
+        color: #ffffff;
+    }
+    .promo-right {
+        position: relative;
+        flex: 1;
+        height: 100%;
+    }
+    .promo-icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: rgb(149, 19, 58);
+    }
+    .promo-image {
+        position: absolute;
+        top: 10px;
+        left: 230px;
+
+        width: 320px;
+        height: 320px;
+
+        border-radius: 16px;
+        transform: rotate(3deg);
+        object-fit: cover;
+        }
+    .promo-text { color: var(--white); z-index: 1; }
+    .btn-white {
+      width:182.59px;
+      height: 56px;
+      background: var(--white);
+      color: var(--crimson);
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13.5px 32px 14.5px 32px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: opacity .2s;
+    }
+    .btn-white:hover { opacity: .9; }
+    .btn-outline-white {
+      width: 182.59px;
+      height: 56px;
+      border-radius: 12px;
+
+      background: transparent;
+      color: var(--white);
+      border: 2px solid var(--white);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,.12); }
+    .promo-img {
+      width: 220px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 12px;
+      z-index: 1;
+      box-shadow: 0 8px 30px rgba(0,0,0,.25);
+    }
+    .btn-white,
+    .btn-outline-white {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0;
+    }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: rgba(231, 232, 241, 1);
+      max-width: 1250px;
+        width: calc(100% - 50px);
+        margin: 0 auto;
+      border-radius: 16px;
+      padding-top: 64px;
+      text-align: center;
+      height: 410px;
+      margin-bottom: 40px;
+    }
+    .mail-icon {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 16px;
+      color: var(--blue);
+    }
+    .newsletter h2 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 36px;
+        letter-spacing: 0;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .newsletter p {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 28px;
+        letter-spacing: 0;
+        text-align: center;
+        vertical-align: middle;
+        padding-top: 20px;
+        color: rgba(66, 71, 83, 1);
+        padding-bottom: 20px;
+    }
+    .email-form {
+      display: flex;
+      max-width: 480px;
+      margin: 0 auto 10px;
+      border-radius: 8px;
+      gap: 12px;
+    }
+    .email-form input {
+        width: 477.78px;
+        height: 58px;
+        padding: 17px 24px 18px 24px;
+        border-radius: 12px;
+        border: 1px solid rgba(107, 127, 198, 1);
+
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 16px;
+        outline: none;
+    }
+    .btn-sub {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0;
+        text-align: center;
+        vertical-align: middle;
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      width: 182.22px;
+        height: 58px;
+        
+        padding: 16.5px 32px 17.5px 32px;
+        border-radius: 12px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s;
+    }
+    .btn-sub:hover { background: var(--blue-dark); }
+    .newsletter small { 
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0;
+        text-align: center;
+        vertical-align: middle;
+     }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 48px 32px;
+      border-top: 1px solid #e8eaf0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 32px;
+    }
+    footer .logo {
+  color: #000;
+}
+
+footer .logo span {
+  color: #000;
+}
+    .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.6; margin: 10px 0 16px; max-width: 240px; }
+    .copyright { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+    .social { display: flex; gap: 12px; }
+    .social a {
+      width: 30px; height: 30px;
+      border: 1px solid #d1d5db;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: border-color .2s, color .2s;
+    }
+    .social a:hover { border-color: var(--blue); color: var(--blue); }
+    .footer-col h4 { font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-col ul a:hover { color: var(--blue); }
+    button,
+.btn-white,
+.btn-outline-white,
+.btn-sub {
+  white-space: nowrap;
+}
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="logo">T<span class="dash">—</span><span class="word">Goda</span></div>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Hotels</a></li>
+      <li><a href="#" >Flights</a></li>
+      <li><a href="#" >Bundles</a></li>
+      <li><a href="#" >Activities</a></li>
+      <span class="underline"></span>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <button class="btn-signin">Sign In</button>
+    <button class="btn-create">Create Account</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>Escape to Your Perfect Paradise</h1>
+    <p>Unlock exclusive prices on over 2 million properties and flights across the globe.</p>
+    <div class="hero-search">
+        <div class="search-input-box">
+            <img src="Icon.svg" class="search-icon" />
+            <input type="text" placeholder="Where to next?" />
+        </div>
+        <div class="date-box">
+            <img src="Icon-2.svg" class="date-icon" />
+            <span>Oct 12 – Oct 18</span>
+        </div>
+        <button class="btn-search">
+            <img src="Icon-3.svg" class="search-btn-icon" />
+            Search
+        </button>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="feature-card">
+    <div class="feature-icon blue">
+        <img src="Icon-4.svg" />
+    </div>
+    <h3>Best Price Guarantee</h3>
+    <p>Find a lower price? We'll match it and give you a voucher for your next trip.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon pink">
+        <img src="Icon-5.svg" />
+    </div>
+    <h3>24/7 Global Support</h3>
+    <p>Our world-class support team is here to help you anywhere, anytime in 40+ languages.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon green">
+        <img src="Icon-6.svg" />
+    </div>
+    <h3>Flexible Booking</h3>
+    <p>Life happens. Most of our properties offer free cancellation for peace of mind.</p>
+  </div>
+</div>
+
+<!-- TRENDING DESTINATIONS -->
+<section class="section">
+  <div class="section-header">
+    <div>
+      <h2>Trending Destinations</h2>
+      <p>Handpicked favorites for your next adventure</p>
+    </div>
+    <a href="index2.html" class="view-all">View all</a>
+  </div>
+  <div class="dest-grid">
+    <div class="dest-card">
+      <div class="dest-img-wrap">
+        <img class="dest-img" src="Image-6.png" alt="Bangkok" />
+        <span class="top-rated">TOP RATED</span>
+      </div>
+      <div class="dest-info">
+        <h4>Bangkok, Thailand</h4>
+        <p>Starting from <span>$120</span></p>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img-wrap">
+        <img class="dest-img" src="Image-5.png" alt="Tokyo" />
+      </div>
+      <div class="dest-info">
+        <h4>Tokyo, Japan</h4>
+        <p>Starting from <span>$250</span></p>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img-wrap">
+        <img class="dest-img" src="Image-4.png" alt="Paris" />
+      </div>
+      <div class="dest-info">
+        <h4>Paris, France</h4>
+        <p>Starting from <span>$180</span></p>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img-wrap">
+        <img class="dest-img" src="Image-3.png" alt="London" />
+      </div>
+      <div class="dest-info">
+        <h4>London, UK</h4>
+        <p>Starting from <span>$210</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO BANNER -->
+<div class="promo">
+    <div class="promo-left">
+        <h2><span class="summer">Summer Sales: Up to 40% Off!</span></h2>
+      <p>Exclusive member deals on flights and luxury hotels for your next summer getaway. Valid until Oct 31st.</p>
+      <div class="promo-btns">
+        <button class="btn-white">Explore Deals</button>
+        <button class="btn-outline-white">Join Club T-Goda</button>
+      </div>
+    </div>
+  
+    <div class="promo-right">
+        <svg class="promo-icon" width="250" height="250" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
+            <path d="M242.5 153.125L153.125 242.5C150.625 245 147.812 246.875 144.688 248.125C141.562 249.375 138.438 250 135.312 250C132.188 250 129.062 249.375 125.938 248.125C122.812 246.875 120 245 117.5 242.5L7.1875 132.188C4.89583 129.896 3.125 127.24 1.875 124.219C0.625 121.198 0 118.021 0 114.688V25C0 18.125 2.44792 12.2396 7.34375 7.34375C12.2396 2.44792 18.125 0 25 0H114.688C118.021 0 121.25 0.677083 124.375 2.03125C127.5 3.38542 130.208 5.20833 132.5 7.5L242.5 117.812C245 120.312 246.823 123.125 247.969 126.25C249.115 129.375 249.688 132.5 249.688 135.625C249.688 138.75 249.115 141.823 247.969 144.844C246.823 147.865 245 150.625 242.5 153.125ZM56.25 75C61.4583 75 65.8854 73.1771 69.5312 69.5312C73.1771 65.8854 75 61.4583 75 56.25C75 51.0417 73.1771 46.6146 69.5312 42.9688C65.8854 39.3229 61.4583 37.5 56.25 37.5C51.0417 37.5 46.6146 39.3229 42.9688 42.9688C39.3229 46.6146 37.5 51.0417 37.5 56.25C37.5 61.4583 39.3229 65.8854 42.9688 69.5312C46.6146 73.1771 51.0417 75 56.25 75ZM137.5 193.75L181.25 150C183.542 147.708 185.365 145 186.719 141.875C188.073 138.75 188.75 135.417 188.75 131.875C188.75 124.792 186.25 118.75 181.25 113.75C176.25 108.75 170.208 106.25 163.125 106.25C159.167 106.25 155.26 107.396 151.406 109.688C147.552 111.979 142.917 115.833 137.5 121.25C131.25 115.417 126.354 111.458 122.812 109.375C119.271 107.292 115.625 106.25 111.875 106.25C104.792 106.25 98.75 108.75 93.75 113.75C88.75 118.75 86.25 124.792 86.25 131.875C86.25 135.417 86.9271 138.75 88.2812 141.875C89.6354 145 91.4583 147.708 93.75 150L137.5 193.75Z" fill="currentColor"/>
+          </svg>
+      <img class="promo-image" src="2a67509e1737e13eaed1266aa507afaab00e80a2.png" />
+    </div>
+  </div>
+  <br><br><br><br><br>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+    <img src="Icon-8.svg" class="mail-icon" />
+  <h2>Get Travel Deals Directly</h2>
+  <p>Subscribe to our newsletter and get early access to hidden gems and seasonal discounts. No spam, only adventure.</p>
+  <div class="email-form">
+    <input type="email" placeholder="Your email address" />
+    <button class="btn-sub">Subscribe Now</button>
+  </div>
+  <small>By subscribing, you agree to our Terms of Service and Privacy Policy</small>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">T-<span>Goda</span></div>
+      <p>Making world travel accessible, affordable, and delightful <br>for everyone since 2024. Your journey starts here.</p>
+      <p class="copyright">© 2024 T-Goda Booking. All rights reserved.</p>
+      <br>
+      <div class="social">
+        <img src="f.svg" />
+        <img src="I.svg" />
+        <img src="t.svg" />
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">Mobile App</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script>
+    const links = document.querySelectorAll('.nav-links a');
+    const underline = document.querySelector('.underline');
+    
+    function moveUnderline(el) {
+      const rect = el.getBoundingClientRect();
+      const parentRect = el.parentElement.parentElement.getBoundingClientRect();
+    
+      underline.style.width = rect.width + "px";
+      underline.style.left = (rect.left - parentRect.left) + "px";
+    }
+    
+    // ตอนโหลดหน้า
+    const active = document.querySelector('.nav-links a.active');
+    if (active) moveUnderline(active);
+    
+    // ตอนคลิก
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+    
+        links.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+    
+        moveUnderline(this);
+      });
+    });
+    </script>
+</body>
+</html>
