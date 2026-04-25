@@ -293,7 +293,7 @@
     align-items: center;
     margin-bottom: 14px;
   }
-  .results-title { font-size: 18px; font-weight: 700; color: #222; }
+  .results-title { font-size: 20px; font-weight: 400; color: #222; }
   .sort-wrap { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; }
   .sort-select {
     border: 1px solid #ddd;
@@ -307,7 +307,7 @@
 
   /* ========== FLASH DEALS CARD ========== */
   .flash-card {
-    border: 2px solid #1565C0;
+    border: 4px solid #1565C0;
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 18px;
@@ -325,16 +325,17 @@
     display: flex;
     align-items: center;
     gap: 7px;
-    font-size: 15px;
-    font-weight: 700;
-    color: #E91E63;
+    font-size: 18px;
+    font-weight: 400;
+    color: #B61B4A;
   }
   .flash-timer-wrap { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; }
   .timer {
-    background: #E91E63;
+    background: #B61B4A;
     color: #fff;
     border-radius: 6px;
     padding: 3px 10px;
+    font-family: 'liberation mono', sans-serif;
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -378,8 +379,8 @@
     justify-content: center;
   }
   .hotel-name {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: 400;
     color: #1a1a1a;
     margin-bottom: 4px;
   }
@@ -404,10 +405,10 @@
     text-decoration: line-through;
     margin-bottom: 2px;
   }
-  .current-price { font-size: 26px; font-weight: 800; color: #1565C0; }
+  .current-price { font-size: 26px; font-weight: 600; color: #B61B4A; }
   .per-night { font-size: 12px; color: #888; }
   .btn-claim {
-    background: #E91E63;
+    background: #B61B4A;
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -467,31 +468,37 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 12px;
-    color: #e632a1;
+    font-size: 11px;
+    color: #191C22;
+    background-color: #ECEDF6;
+    padding: 4px;
+    border-radius: 4px;
   }
-  .urgency { font-size: 12px; color: #888; margin-top: 10px; font-weight: 500; }
-  .cancel-note { font-size: 12px; color: #888; margin-top: 8px; }
+  .urgency { font-size: 12px; color: #424753; margin-top: 10px; font-weight: 500;}
+  .cancel-note { font-size: 12px; color: #424753; margin-top: 8px; }
   .deal-note { font-size: 12px; color: #888; margin-top: 8px; }
   .hotel-card .hotel-price-wrap { padding: 18px 18px; min-width: 130px; }
-  .hotel-card .current-price { color: #1565C0; }
+  .hotel-card .current-price { color: #B61B4A; }
   .review-score {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: 8px;
+    background: #005CBD1A;
+    padding: 6px 12px;
+    border-radius: 8px;
   }
   .score-value { font-size: 15px; font-weight: 800; color: #1565C0; }
   .score-label { font-size: 12px; color: #888; }
   .score-count { font-size: 11px; color: #aaa; }
   .btn-book {
-    background: #1565C0;
+    background: #B61B4A;
     color: #fff;
     border: none;
     border-radius: 6px;
-    padding: 8px 20px;
-    font-size: 13px;
-    font-weight: 700;
+    padding: 8px 24px;
+    font-size: 16px;
+    font-weight: 400;
     cursor: pointer;
     margin-top: 8px;
     width: 100%;
@@ -523,13 +530,85 @@
     background: #1565C0;
     color: #fff;
     border-color: #1565C0;
-    font-weight: 700;
+    font-weight: 400;
   }
   .page-btn.arrow { font-size: 18px; }
 
   /* Stars inline */
   .stars-inline { display: inline-flex; gap: 1px; margin-left: 6px; vertical-align: middle; }
   .stars-inline .star { font-size: 13px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid #e5e7eb;
+    padding: 48px 40px 32px;
+  }
+
+  .footer-grid {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .footer-logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+  }
+
+  .footer-tagline {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: #9ca3af;
+    margin-bottom: 20px;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 16px;
+  }
+
+  .social-icons a {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+  }
+
+  .footer-col-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-links li a {
+    font-size: 14px;
+    color: #6b7280;
+  }
+
+  .footer-links li a:hover { color: #1a1a1a; }
 </style>
 </head>
 <body>
@@ -776,7 +855,7 @@
     <!-- The Azure Serenity Resort -->
     <div class="hotel-card">
       <div class="hotel-img-wrap" style="position:relative;">
-        <img src="Image/1.png" alt="The Azure Serenity Resort">
+        <img src="picturee/villa4.png" alt="The Azure Serenity Resort">
         <div class="top-choice-badge"><span class="dot"></span> Top Choice</div>
       </div>
       <div class="hotel-info">
@@ -809,7 +888,7 @@
     <div class="hotel-card">
       <div class="hotel-img-wrap">
         <a href="index3.html" class="view-all">
-          <img src="picturee/villa4.png" alt="Lumina Beach Villas">
+          <img src="picturee/villa5.png" alt="Lumina Beach Villas">
         </a>
       </div>
       <div class="hotel-info">
@@ -870,7 +949,6 @@
     <!-- PAGINATION -->
     <div class="pagination">
       <button class="page-btn arrow">&#8249;</button>
-      <button class="page-btn arrow" style="background:#1565C0;color:#fff;border-color:#1565C0;">&#8249;</button>
       <button class="page-btn active">1</button>
       <button class="page-btn">2</button>
       <button class="page-btn">3</button>
@@ -880,153 +958,50 @@
     </div>
   </main>
 </div>
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T-Goda Footer</title>
-    <!-- นำเข้า Font Awesome สำหรับ Icon โซเชียล -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">T-Goda</div>
+      <p class="footer-tagline">Making world travel accessible, affordable, and delightful for everyone since 2024. Your journey starts here.</p>
+      <p class="footer-copy">© 2024 T-Goda Booking. All rights reserved.</p>
+      <div class="social-icons">
+        <a href="#">
+          <img src="icon/facebook.png" alt="Facebook"></img>
+        </a>
+        <a href="#">
+            <img src="icon/ig.png" alt="Instagram"></img>
+        </a>
+        <a href="#">
+            <img src="icon/twitter.png" alt="Twitter"></img>
+        </a>
+      </div>
+    </div>
 
-        /* ส่วน Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 0;
-            gap: 10px;
-        }
-        .page-btn {
-            border: 1px solid #ddd;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            background: white;
-        }
-        .page-btn.active {
-            background-color: #0066cc;
-            color: white;
-            border-color: #0066cc;
-        }
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
 
-        /* ส่วน Footer */
-        footer {
-            background-color: #fdfdfd;
-            padding: 60px 10%;
-            border-top: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
+    <div>
+      <div class="footer-col-title">Support</div>
+      <ul class="footer-links">
+        <li><a href="#">Support</a></li>
+        <li><a href="#">Mobile App</a></li>
+      </ul>
+    </div>
 
-        .footer-left {
-            flex: 2;
-            min-width: 300px;
-        }
-
-        .footer-left h2 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #000;
-        }
-
-        .footer-left p {
-            max-width: 350px;
-            line-height: 1.6;
-            color: #666;
-        }
-
-        .footer-right {
-            flex: 3;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .footer-column h4 {
-            margin-bottom: 20px;
-            color: #000;
-        }
-
-        .footer-column ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-column ul li a {
-            text-decoration: none;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .social-icons {
-            margin-top: 30px;
-        }
-
-        .social-icons i {
-            font-size: 20px;
-            margin-right: 15px;
-            color: #ccc;
-            cursor: pointer;
-        }
-
-        .copyright {
-            padding: 20px 10%;
-            font-size: 13px;
-            color: #888;
-        }
-    </style>
-</head>
-<body>
-    <!-- Footer Area -->
-    <footer>
-        <div class="footer-left">
-            <h2>T-Goda</h2>
-            <p>Making world travel accessible, affordable, and delightful for everyone since 2024. Your journey starts here.</p>
-            <div class="copyright">
-                © 2024 T-Goda Booking. All rights reserved.
-            </div>
-            <div class="social-icons">
-                <i class="fab fa-facebook"></i>
-                <i class="fab fa-instagram"></i>
-                <i class="fab fa-twitter"></i>
-            </div>
-        </div>
-
-        <div class="footer-right">
-            <div class="footer-column">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">Mobile App</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
